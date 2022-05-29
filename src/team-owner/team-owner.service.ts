@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AddTeamOwnerDto } from './dto';
 import { UpdateTeamOwnerDto } from './dto/update-team-owner.dto';
-import { TeamOwner, TeamOwnerDocument } from './entities/team-owner.schema';
+import { TeamOwner, TeamOwnerDocument } from './entities/team-owner.persistence';
 
 @Injectable()
 export class TeamOwnerService {

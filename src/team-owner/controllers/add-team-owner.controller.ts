@@ -1,6 +1,7 @@
 import { Controller, Post, Body, ConflictException } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AddTeamOwnerDto } from '../dto';
+import { TeamOwnerApplication } from '../entities';
 import { AddTeamOwnerRepository } from '../repositories/add-team-owner.repository';
 import { CheckTeamOwnerRepository } from '../repositories/check-team-owner.repository';
 
@@ -16,6 +17,10 @@ export class AddTeamOwnerController {
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request',
   })
   @ApiResponse({
     status: 409,
@@ -37,6 +42,7 @@ export class AddTeamOwnerController {
       );
     }
 
-    return this.addTeamOwner.addTeamOwner(dto);
+    const teamOwner = TeamOwnerApplication.create(dto);
+    return this.addTeamOwner.addTeamOwner(teamOwner);
   }
 }

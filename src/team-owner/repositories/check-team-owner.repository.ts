@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TeamOwner, TeamOwnerDocument } from '../entities/team-owner.schema';
+import { TeamOwner, TeamOwnerDocument } from '../entities/team-owner.persistence';
 
 @Injectable()
 export class CheckTeamOwnerRepository {

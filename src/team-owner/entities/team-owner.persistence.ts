@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type TeamOwnerDocument = TeamOwner & Document;
 
-@Schema({ collection: 'team-owners' })
+@Schema({ collection: 'team-owners', timestamps: true })
 export class TeamOwner {
   @Prop({ required: true, length: 25 })
   name: string;
@@ -13,6 +13,9 @@ export class TeamOwner {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop({ required: true })
+  emailVerified: boolean;
 }
 
 export const TeamOwnerSchema = SchemaFactory.createForClass(TeamOwner);
