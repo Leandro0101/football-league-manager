@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MongoHelper } from 'src/shared/mongo-helper';
+import { MongoHelper } from 'src/common/mongo-helper';
 import { TeamOwnerApplication } from '../entities';
 import {
   TeamOwnerPersistence,

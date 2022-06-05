@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, Length, MinLength } from 'class-validator';
 
-export class AddTeamOwnerDto {
+export class CreateTeamOwnerDto {
   @ApiProperty()
   @IsNotEmpty()
   @Length(7, 25)

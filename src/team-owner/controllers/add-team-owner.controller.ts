@@ -1,17 +1,12 @@
-import { Controller, Post, Body, ConflictException } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AddTeamOwnerDto } from '../dto';
-import { TeamOwnerApplication } from '../entities';
-import { AddTeamOwnerRepository } from '../repositories/add-team-owner.repository';
-import { CheckTeamOwnerRepository } from '../repositories/check-team-owner.repository';
+import { CreateTeamOwnerDto } from '../dto';
+import { AddTeamOwnerService } from '../services/add-team-owner.service';
 
 @ApiTags('team-owner')
 @Controller('team-owners')
 export class AddTeamOwnerController {
-  constructor(
-    private readonly checkTeamOwner: CheckTeamOwnerRepository,
-    private readonly addTeamOwner: AddTeamOwnerRepository,
-  ) {}
+  constructor(private readonly addTeamOwner: AddTeamOwnerService) {}
 
   @Post()
   @ApiResponse({
@@ -33,17 +28,8 @@ export class AddTeamOwnerController {
       },
     },
   })
-  async handler(@Body() dto: AddTeamOwnerDto) {
-    const { email } = dto;
-    const exists = await this.checkTeamOwner.checkByEmail(email);
-    if (exists) {
-      throw new ConflictException(
-        'There is already a team owner with this email',
-      );
-    }
-
-    const application = TeamOwnerApplication.create(dto);
-    const savedApplication = await this.addTeamOwner.addTeamOwner(application);
-    return savedApplication.getPresentation();
+  async handler(@Body() dto: CreateTeamOwnerDto) {
+    const application = await this.addTeamOwner.execute(dto);
+    return application.getPresentation();
   }
 }

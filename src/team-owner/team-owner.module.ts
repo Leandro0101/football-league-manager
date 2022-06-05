@@ -9,7 +9,11 @@ import {
 import { AddTeamOwnerController } from './controllers/add-team-owner.controller';
 import { CheckTeamOwnerRepository } from './repositories/check-team-owner.repository';
 import { AddTeamOwnerRepository } from './repositories/add-team-owner.repository';
+import { AddTeamOwnerService } from './services/add-team-owner.service';
+import { HashingService } from 'src/common/services';
 
+const services = [TeamOwnerService, AddTeamOwnerService, HashingService];
+const repositories = [CheckTeamOwnerRepository, AddTeamOwnerRepository];
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -17,10 +21,6 @@ import { AddTeamOwnerRepository } from './repositories/add-team-owner.repository
     ]),
   ],
   controllers: [TeamOwnerController, AddTeamOwnerController],
-  providers: [
-    TeamOwnerService,
-    CheckTeamOwnerRepository,
-    AddTeamOwnerRepository,
-  ],
+  providers: [...services, ...repositories],
 })
 export class TeamOwnerModule {}
