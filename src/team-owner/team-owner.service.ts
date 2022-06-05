@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AddTeamOwnerDto } from './dto';
 import { UpdateTeamOwnerDto } from './dto/update-team-owner.dto';
-import { TeamOwner, TeamOwnerDocument } from './entities/team-owner.persistence';
+import { TeamOwnerDocument, TeamOwnerPersistence } from './entities';
 
 @Injectable()
 export class TeamOwnerService {
   constructor(
-    @InjectModel(TeamOwner.name)
+    @InjectModel(TeamOwnerPersistence.name)
     private readonly teamOwnerModel: Model<TeamOwnerDocument>,
   ) {}
   async create(createTeamOwnerDto: AddTeamOwnerDto) {

@@ -42,7 +42,8 @@ export class AddTeamOwnerController {
       );
     }
 
-    const teamOwner = TeamOwnerApplication.create(dto);
-    return this.addTeamOwner.addTeamOwner(teamOwner);
+    const application = TeamOwnerApplication.create(dto);
+    const savedApplication = await this.addTeamOwner.addTeamOwner(application);
+    return savedApplication.getPresentation();
   }
 }

@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type TeamOwnerDocument = TeamOwner & Document;
+export type TeamOwnerDocument = TeamOwnerPersistence & Document;
 
 @Schema({ collection: 'team-owners', timestamps: true })
-export class TeamOwner {
+export class TeamOwnerPersistence {
   @Prop({ required: true, length: 25 })
   name: string;
 
@@ -18,4 +18,5 @@ export class TeamOwner {
   emailVerified: boolean;
 }
 
-export const TeamOwnerSchema = SchemaFactory.createForClass(TeamOwner);
+export const TeamOwnerSchema =
+  SchemaFactory.createForClass(TeamOwnerPersistence);

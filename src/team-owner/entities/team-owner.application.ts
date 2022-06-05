@@ -1,4 +1,4 @@
-export type TeamOwnerType = {
+export type TeamOwnerApplicationObject = {
   id: string;
   name: string;
   password: string;
@@ -8,7 +8,7 @@ export type TeamOwnerType = {
   createdAt: Date;
 };
 
-type DTO = Omit<TeamOwnerType, 'id' | 'updatedAt' | 'createdAt'>;
+type DTO = Omit<TeamOwnerApplicationObject, 'id' | 'updatedAt' | 'createdAt'>;
 
 export class TeamOwnerName {
   value: string;
@@ -26,7 +26,7 @@ export class TeamOwnerApplication {
   updatedAt: Date;
   createdAt: Date;
 
-  constructor(data: TeamOwnerType) {
+  constructor(data: TeamOwnerApplicationObject) {
     const { name, password, email, createdAt, emailVerified, id, updatedAt } =
       data;
     this.name = new TeamOwnerName(name);
@@ -51,7 +51,7 @@ export class TeamOwnerApplication {
     });
   }
 
-  getEntity(): TeamOwnerType {
+  getEntity(): TeamOwnerApplicationObject {
     return {
       name: this.name.value,
       password: this.password,
@@ -61,6 +61,11 @@ export class TeamOwnerApplication {
       updatedAt: this.updatedAt,
       id: this.id,
     };
+  }
+
+  getPresentation(): Omit<TeamOwnerApplicationObject, 'password'> {
+    const { password, name, ...rest } = this;
+    return { ...rest, name: this.name.value };
   }
 
   getDTO(): DTO {

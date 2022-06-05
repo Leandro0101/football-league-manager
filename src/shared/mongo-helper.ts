@@ -1,11 +1,9 @@
-import { formatTeamOwner } from 'src/team-owner/format-team-owner';
-
-type Entity = 'TeamOwner';
 export const MongoHelper = {
-  map: (data: any, entity: Entity) => {
-    switch (entity) {
-      case 'TeamOwner':
-        return formatTeamOwner(data);
-    }
+  map: (data: any) => {
+    const { _id, __v, ...rest } = data._doc;
+    return {
+      ...rest,
+      id: _id,
+    };
   },
 };
