@@ -1,2 +1,3 @@
-export * from './add-team-owner.repository';
-export * from './check-team-owner.repository';
+export * from './write-team-owner.repository';
+export * from './read-team-owner.repository';
+export * from './team-owner-repository';

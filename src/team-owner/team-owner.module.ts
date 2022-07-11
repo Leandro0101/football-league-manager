@@ -1,26 +1,39 @@
 import { Module } from '@nestjs/common';
-import { TeamOwnerService } from './team-owner.service';
-import { TeamOwnerController } from './team-owner.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TeamOwnerPersistence, TeamOwnerSchema } from './entities';
 import {
-  TeamOwnerPersistence,
-  TeamOwnerSchema,
-} from './entities/team-owner.persistence';
-import { AddTeamOwnerController } from './controllers/add-team-owner.controller';
-import { CheckTeamOwnerRepository } from './repositories/check-team-owner.repository';
-import { AddTeamOwnerRepository } from './repositories/add-team-owner.repository';
-import { AddTeamOwnerService } from './services/add-team-owner.service';
-import { HashingService } from 'src/common/services';
+  AddTeamOwnerController,
+  ConfirmTeamOwnerEmailController,
+} from './controllers';
+import {
+  ReadTeamOwnerRepository,
+  WriteTeamOwnerRepository,
+} from './repositories';
+import { AddTeamOwnerService, ConfirmTeamOwnerEmailService } from './services';
+import {
+  HashingService,
+  MailSenderService,
+  SendEmailConfirmationService,
+} from 'src/common/services';
+import { JwtService } from '@nestjs/jwt';
 
-const services = [TeamOwnerService, AddTeamOwnerService, HashingService];
-const repositories = [CheckTeamOwnerRepository, AddTeamOwnerRepository];
+const services = [
+  AddTeamOwnerService,
+  HashingService,
+  SendEmailConfirmationService,
+  JwtService,
+  MailSenderService,
+];
+
+const repositories = [ReadTeamOwnerRepository, WriteTeamOwnerRepository];
+
 @Module({
   imports: [
     MongooseModule.forFeature([
       { schema: TeamOwnerSchema, name: TeamOwnerPersistence.name },
     ]),
   ],
-  controllers: [TeamOwnerController, AddTeamOwnerController],
-  providers: [...services, ...repositories],
+  controllers: [AddTeamOwnerController, ConfirmTeamOwnerEmailController],
+  providers: [...services, ...repositories, ConfirmTeamOwnerEmailService],
 })
 export class TeamOwnerModule {}

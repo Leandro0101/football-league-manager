@@ -1,12 +1,16 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SendEmailConfirmationService } from 'src/common/services';
 import { CreateTeamOwnerDto } from '../dto';
 import { AddTeamOwnerService } from '../services/add-team-owner.service';
 
 @ApiTags('team-owner')
 @Controller('team-owners')
 export class AddTeamOwnerController {
-  constructor(private readonly addTeamOwner: AddTeamOwnerService) {}
+  constructor(
+    private readonly addTeamOwnerService: AddTeamOwnerService,
+    private readonly emailConfirmationService: SendEmailConfirmationService,
+  ) {}
 
   @Post()
   @ApiResponse({
@@ -29,7 +33,10 @@ export class AddTeamOwnerController {
     },
   })
   async handler(@Body() dto: CreateTeamOwnerDto) {
-    const application = await this.addTeamOwner.execute(dto);
+    const application = await this.addTeamOwnerService.execute(dto);
+    await this.emailConfirmationService.execute(application.email, {
+      id: application.id,
+    });
     return application.getPresentation();
   }
 }
