@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { HashingService } from 'src/common/services';
+import { HashingService } from 'src/common/services/hashing';
 import { CreateTeamOwnerDto } from '../dto';
 import { TeamOwnerApplication } from '../entities';
 import {

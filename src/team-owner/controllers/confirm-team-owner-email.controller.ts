@@ -1,4 +1,4 @@
-import { Controller, Post, Param, HttpCode } from '@nestjs/common';
+import { Controller, Param, HttpCode, Get } from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ConfirmTeamOwnerEmailService } from '../services/confirm-team-owner-email.service';
 
@@ -14,7 +14,7 @@ export class ConfirmTeamOwnerEmailController {
     example:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyY2I5ZDQ4NGEwYWNjY2E5YWVjZmIwNCIsImV4cGlyZXNJbiI6IjYwcyIsImlhdCI6MTY1NzUxMTI0MCwiZXhwIjoxNjU3NTExMzAwfQ.3DVLofUJYoWgf2NwMM-kB6owL9ZdvnoEwOiEv5E_gGk',
   })
-  @Post(':token')
+  @Get(':token')
   @HttpCode(200)
   @ApiResponse({
     status: 200,

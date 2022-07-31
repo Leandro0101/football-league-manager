@@ -7,7 +7,7 @@ export class CreateTeamOwnerDto {
   @Length(7, 25)
   name: string;
 
-  @ApiProperty({ example: 'anymail.example@docexample' })
+  @ApiProperty({ example: 'anymail.example@docexample.com' })
   @IsEmail()
   email: string;
 

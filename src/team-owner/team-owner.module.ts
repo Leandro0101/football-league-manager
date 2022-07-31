@@ -10,20 +10,10 @@ import {
   WriteTeamOwnerRepository,
 } from './repositories';
 import { AddTeamOwnerService, ConfirmTeamOwnerEmailService } from './services';
-import {
-  HashingService,
-  MailSenderService,
-  SendEmailConfirmationService,
-} from 'src/common/services';
+import { HashingService } from 'src/common/services/hashing';
 import { JwtService } from '@nestjs/jwt';
 
-const services = [
-  AddTeamOwnerService,
-  HashingService,
-  SendEmailConfirmationService,
-  JwtService,
-  MailSenderService,
-];
+const services = [AddTeamOwnerService, HashingService, JwtService];
 
 const repositories = [ReadTeamOwnerRepository, WriteTeamOwnerRepository];
 
